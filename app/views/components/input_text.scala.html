@@ -1,0 +1,15 @@
+@(field: Field,
+  label: String,
+  placeHolder: String = "")
+
+<div class="form-group">
+  <label for="@{field.id}">@label</label>
+  <input
+    type="text"
+    class="form-control"
+    id="@{field.id}"
+    name="@{field.name}"
+    value="@{field.value}"
+    placeholder="@placeHolder"
+  />
+</div>
