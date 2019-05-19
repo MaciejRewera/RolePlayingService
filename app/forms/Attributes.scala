@@ -17,7 +17,6 @@ case class Attributes(
 )
 
 object Attributes {
-
   val weaponSkillKey = "weaponSkill"
   val ballisticSkillKey = "ballisticSkill"
   val strengthKey = "strength"
