@@ -1,6 +1,6 @@
 package models.charactersheet.characteristics
 
-import forms.Attributes
+import forms.InitialAttributes
 import play.api.libs.json.Json
 
 case class Characteristics(
@@ -19,7 +19,7 @@ case class Characteristics(
 object Characteristics {
   implicit val format = Json.format[Characteristics]
 
-  def apply(initialAttributes: Attributes): Characteristics = Characteristics(
+  def apply(initialAttributes: InitialAttributes): Characteristics = Characteristics(
     weaponSkill = WeaponSkill(initialAttributes.weaponSkill),
     ballisticSkill = BallisticSkill(initialAttributes.ballisticSkill),
     strength = Strength(initialAttributes.strength),

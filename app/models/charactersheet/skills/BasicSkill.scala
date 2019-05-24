@@ -1,5 +1,5 @@
 package models.charactersheet.skills
 
-import models.charactersheet.characteristics.Attribute
+import models.charactersheet.characteristics.Characteristic
 
-case class BasicSkill(name: String, relatedAttribute: Attribute) extends Skill(name, relatedAttribute)
+case class BasicSkill(name: String, relatedCharacteristic: Characteristic) extends Skill(name, relatedCharacteristic)

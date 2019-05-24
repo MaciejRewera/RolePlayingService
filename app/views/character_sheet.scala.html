@@ -1,0 +1,38 @@
+
+@import models.charactersheet.CharacterSheet
+
+@()
+
+@components.page_with_bootstrap() {
+
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h3 align="center">Characteristics</h3>
+        @components.characteristics_table()
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h3 align="center">Basic Skills</h3>
+        @components.basic_skills_table()
+      </div>
+      <div class="col">
+        <h3 align="center">Basic Skills</h3>
+        @components.basic_skills_table()
+      </div>
+      <div class="col">
+        <h3 align="center">Advanced Skills</h3>
+        @components.basic_skills_table()
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h3 align="center">Talents</h3>
+        @components.talents_table()
+      </div>
+    </div>
+
+  </div>
+
+}
