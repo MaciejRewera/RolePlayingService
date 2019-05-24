@@ -10,7 +10,7 @@ GET     /attributes/create          controllers.CreateCharacterController.displa
 
 POST    /attributes/create          controllers.CreateCharacterController.submitForm
 
-
+GET     /characterSheet             controllers.CharacterSheetController.displayPage
 
 
 

@@ -1,6 +1,6 @@
 package controllers
 
-import forms.Attributes
+import forms.InitialAttributes
 import javax.inject.{Inject, Singleton}
 import models.charactersheet.characteristics.Characteristics
 import play.api.Logger
@@ -22,11 +22,11 @@ class CreateCharacterController @Inject()(
     database.map(_.collection[JSONCollection]("attributes"))
 
   def displayPage(): Action[AnyContent] = Action.async { implicit request =>
-    Future.successful(Ok(create_attributes(Attributes.form())))
+    Future.successful(Ok(create_attributes(InitialAttributes.form())))
   }
 
   def submitForm(): Action[AnyContent] = Action.async { implicit request =>
-    Attributes.form().bindFromRequest().fold(
+    InitialAttributes.form().bindFromRequest().fold(
       formWithErrors =>
         Future.successful(BadRequest(create_attributes(formWithErrors))),
       attributes => {
@@ -36,7 +36,7 @@ class CreateCharacterController @Inject()(
     )
   }
 
-  private def onSuccessfulValidation(initialAttributes: Attributes): Unit = {
+  private def onSuccessfulValidation(initialAttributes: InitialAttributes): Unit = {
     val characteristics = Characteristics(initialAttributes)
     println("Now application should write to the DB with: " + characteristics)
 

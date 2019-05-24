@@ -3,7 +3,7 @@ package forms
 import play.api.data.Forms._
 import play.api.data.{Form, Forms}
 
-case class Attributes(
+case class InitialAttributes(
   weaponSkill: Int,
   ballisticSkill: Int,
   strength: Int,
@@ -16,7 +16,7 @@ case class Attributes(
   fellowship: Int
 )
 
-object Attributes {
+object InitialAttributes {
   val weaponSkillKey = "weaponSkill"
   val ballisticSkillKey = "ballisticSkill"
   val strengthKey = "strength"
@@ -41,7 +41,7 @@ object Attributes {
     intelligenceKey -> number().verifying(attributeValueOutOfRange, _ >= 0),
     willpowerKey -> number().verifying(attributeValueOutOfRange, _ >= 0),
     fellowshipKey -> number().verifying(attributeValueOutOfRange, _ >= 0)
-  )(Attributes.apply)(Attributes.unapply)
+  )(InitialAttributes.apply)(InitialAttributes.unapply)
 
-  def form(): Form[Attributes] = Form(mapping)
+  def form(): Form[InitialAttributes] = Form(mapping)
 }

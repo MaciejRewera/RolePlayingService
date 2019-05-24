@@ -1,12 +1,12 @@
 package models.charactersheet.skills
 
-import models.charactersheet.characteristics.Attribute
+import models.charactersheet.characteristics.Characteristic
 
 abstract class Skill(
   name: String,
-  relatedAttribute: Attribute,
+  relatedCharacteristic: Characteristic,
   advances: Int = 0,
   otherBonuses: Int = 0
 ) {
-  def skillValue: Int = relatedAttribute.current + advances + otherBonuses
+  def skillValue: Int = relatedCharacteristic.current + advances + otherBonuses
 }
