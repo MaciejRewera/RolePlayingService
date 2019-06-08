@@ -2,7 +2,6 @@ package controllers
 
 import forms.InitialAttributes
 import javax.inject.{Inject, Singleton}
-import models.charactersheet.characteristics.Characteristics
 import play.api.Logger
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}
 import play.modules.reactivemongo.{MongoController, ReactiveMongoApi, ReactiveMongoComponents}
@@ -18,6 +17,8 @@ class CreateCharacterController @Inject()(
 ) extends AbstractController(cc) with MongoController with ReactiveMongoComponents {
 
   import scala.concurrent.ExecutionContext.Implicits.global
+  private val logger = Logger(this.getClass)
+
   private def collection: Future[JSONCollection] =
     database.map(_.collection[JSONCollection]("attributes"))
 
@@ -37,12 +38,12 @@ class CreateCharacterController @Inject()(
   }
 
   private def onSuccessfulValidation(initialAttributes: InitialAttributes): Unit = {
-    val characteristics = Characteristics(initialAttributes)
-    println("Now application should write to the DB with: " + characteristics)
-
-    collection.flatMap(_.insert.one(characteristics)).map { lastError =>
-      Logger.debug(s"Successfully inserted with LastError: $lastError")
-    }
+//    val characteristics = Characteristics(initialAttributes)
+//    println("Now application should write to the DB with: " + characteristics)
+//
+//    collection.flatMap(_.insert.one(characteristics)).map { lastError =>
+//      logger.debug(s"Successfully inserted with LastError: $lastError")
+//    }
 
   }
 

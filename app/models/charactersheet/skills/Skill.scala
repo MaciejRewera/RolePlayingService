@@ -1,12 +1,13 @@
 package models.charactersheet.skills
 
-import models.charactersheet.characteristics.Characteristic
+import play.api.libs.json.Json
 
-abstract class Skill(
-  name: String,
-  relatedCharacteristic: Characteristic,
-  advances: Int = 0,
-  otherBonuses: Int = 0
-) {
-  def skillValue: Int = relatedCharacteristic.current + advances + otherBonuses
+case class Skill(
+  definition: SkillDefinition,
+  specialisation: Option[String],
+  value: SkillValue
+)
+
+object Skill {
+  implicit val format = Json.format[Skill]
 }
