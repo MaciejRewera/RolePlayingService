@@ -1,5 +1,7 @@
 package models.charactersheet.communication.internal
 
+import models.charactersheet.communication.internal.messages.Message
+
 import scala.collection.mutable
 
 class BasicMessageBroker extends MessageBroker {

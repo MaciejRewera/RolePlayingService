@@ -1,5 +1,6 @@
 package models.charactersheet.communication.internal
 
+import models.charactersheet.communication.internal.messages.Message
 import org.mockito.ArgumentMatchers.{eq => meq}
 import org.mockito.Mockito.{verify, verifyZeroInteractions}
 import org.scalatest.{MustMatchers, WordSpec}
@@ -187,7 +188,7 @@ class BasicMessageBrokerSpec extends WordSpec with MustMatchers with MockitoSuga
         messageBroker.subscribe(subscriberMock_1, topic)
         messageBroker.subscribe(subscriberMock_2, topic)
 
-        messageBroker.publish(StringMessage("msg"), "Non-existingTopic")
+        messageBroker.publish(Message("msg"), "Non-existingTopic")
 
         verifyZeroInteractions(subscriberMock_1)
         verifyZeroInteractions(subscriberMock_2)
@@ -202,7 +203,7 @@ class BasicMessageBrokerSpec extends WordSpec with MustMatchers with MockitoSuga
         messageBroker.subscribe(subscriberMock_1, topic)
         messageBroker.subscribe(subscriberMock_2, topic)
 
-        val message = StringMessage("msg")
+        val message = Message("msg")
         messageBroker.publish(message, topic)
 
         verify(subscriberMock_1).onMessageReceived(meq(message))
@@ -216,7 +217,7 @@ class BasicMessageBrokerSpec extends WordSpec with MustMatchers with MockitoSuga
         messageBroker.subscribe(subscriberMock_1, topic_1)
         messageBroker.subscribe(subscriberMock_2, topic_2)
 
-        val message = StringMessage("msg")
+        val message = Message("msg")
         messageBroker.publish(message, topic_1)
 
         verify(subscriberMock_1).onMessageReceived(meq(message))
@@ -230,7 +231,7 @@ class BasicMessageBrokerSpec extends WordSpec with MustMatchers with MockitoSuga
         messageBroker.subscribe(subscriberMock_1, topic_1)
         messageBroker.subscribe(subscriberMock_1, topic_2)
 
-        val message = StringMessage("msg")
+        val message = Message("msg")
         messageBroker.publish(message, topic_1)
 
         verify(subscriberMock_1).onMessageReceived(meq(message))
