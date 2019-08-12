@@ -1,11 +1,12 @@
 package models.charactersheet.talents
 
-import models.charactersheet.skills.SkillDefinition
+import play.api.libs.json.Json
 
 case class Talent(
-  name: String,
-  description: String,
-  relatedSkill: SkillDefinition,
-  timesTaken: Int,
-  maxTimesToTake: Int
+  definition: TalentDefinition,
+  var timesTaken: Int
 )
+
+object Talent {
+  implicit val format = Json.format[Talent]
+}

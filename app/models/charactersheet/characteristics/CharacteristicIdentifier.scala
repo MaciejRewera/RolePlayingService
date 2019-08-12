@@ -2,7 +2,7 @@ package models.charactersheet.characteristics
 
 import play.api.libs.json._
 
-class CharacteristicIdentifier(val fullName: String, val shortName: String)
+sealed class CharacteristicIdentifier(val fullName: String, val shortName: String)
 
 object CharacteristicIdentifier {
   implicit val format = new Format[CharacteristicIdentifier] {
