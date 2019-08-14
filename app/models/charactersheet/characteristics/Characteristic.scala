@@ -4,9 +4,9 @@ import play.api.libs.json.Json
 
 case class Characteristic(
   identifier: CharacteristicIdentifier,
-  initial: Int,
-  advances: Int = 0,
-  otherBonuses: Int = 0
+  var initial: Int = 0,
+  var advances: Int = 0,
+  var otherBonuses: Int = 0
 ) {
   def current: Int = initial + advances + otherBonuses
 }

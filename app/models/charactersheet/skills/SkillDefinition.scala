@@ -8,7 +8,7 @@ case class SkillDefinition(
   description: String = "",
   category: Set[SkillCategory],
   possibleSpecialisations: Set[String] = Set.empty,
-  relatedCharacteristic: CharacteristicIdentifier
+  relatedCharacteristicIdentifier: CharacteristicIdentifier
 )
 
 object SkillDefinition {
@@ -22,7 +22,7 @@ object SkillDefinition {
       "description" -> o.description,
       "category" -> Json.toJsFieldJsValueWrapper(o.category),
       "possibleSpecialisations" -> Json.toJsFieldJsValueWrapper(o.possibleSpecialisations),
-      "relatedCharacteristic" -> o.relatedCharacteristic
+      "relatedCharacteristic" -> o.relatedCharacteristicIdentifier
     )
 
     override def reads(json: JsValue): JsResult[SkillDefinition] = for {
