@@ -1,5 +1,7 @@
 package models.charactersheet
 
+import java.util.UUID
+
 import models.charactersheet.characteristics.{BallisticSkill, _}
 import models.charactersheet.skills._
 import models.charactersheet.talents.Talent
@@ -8,6 +10,7 @@ import play.api.libs.json.{JsValue, Json}
 import scala.collection.mutable.{ArrayBuffer, Seq => MSeq}
 
 case class CharacterStats(
+  id: String = UUID.randomUUID().toString,
   characteristics: MSeq[Characteristic],
   skills: MSeq[Skill],
   talents: MSeq[Talent]
