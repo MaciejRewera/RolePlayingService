@@ -15,11 +15,11 @@
     <div class="row">
       <div class="col">
         <h3 align="center">Basic Skills</h3>
-        @{components.basic_skills_table(characterStats.skills)}
+        @{components.skills_table(characterStats.skills.take(characterStats.skills.length / 2))}
       </div>
       <div class="col">
         <h3 align="center">Basic Skills</h3>
-        @{components.basic_skills_table(characterStats.skills)}
+        @{components.skills_table(characterStats.skills.drop(characterStats.skills.length / 2))}
       </div>
       <div class="col">
         <h3 align="center">Advanced Skills</h3>
