@@ -16,7 +16,7 @@ object CharacteristicIdentifier {
       shortName <- (json \ "shortName").validate[String]
     } yield (fullName, shortName) match {
       case ("Weapon Skill", "WS") => WeaponSkill
-      case ("BallisticSkill", "BS") => BallisticSkill
+      case ("Ballistic Skill", "BS") => BallisticSkill
       case ("Strength", "S") => Strength
       case ("Toughness", "T") => Toughness
       case ("Initiative", "I") => Initiative
