@@ -1,6 +1,7 @@
 
+@import models.charactersheet.CharacterStats
 
-@()
+@(characterStats: CharacterStats)
 
 @components.page_with_bootstrap() {
 
@@ -8,21 +9,21 @@
     <div class="row">
       <div class="col">
         <h3 align="center">Characteristics</h3>
-        @components.characteristics_table()
+        @{components.characteristics_table(characterStats.characteristics)}
       </div>
     </div>
     <div class="row">
       <div class="col">
         <h3 align="center">Basic Skills</h3>
-        @components.basic_skills_table()
+        @{components.basic_skills_table(characterStats.skills)}
       </div>
       <div class="col">
         <h3 align="center">Basic Skills</h3>
-        @components.basic_skills_table()
+        @{components.basic_skills_table(characterStats.skills)}
       </div>
       <div class="col">
         <h3 align="center">Advanced Skills</h3>
-        @components.basic_skills_table()
+        @{components.basic_skills_table(characterStats.skills)}
       </div>
     </div>
     <div class="row">

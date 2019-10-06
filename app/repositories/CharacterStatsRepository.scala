@@ -1,5 +1,6 @@
 package repositories
 
+import javax.inject.{Inject, Singleton}
 import models.charactersheet.CharacterStats
 import play.api.Logger
 import play.api.libs.json.Json
@@ -14,7 +15,8 @@ import reactivemongo.play.json.collection.JSONCollection
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class CharacterStatsRepository(implicit ec: ExecutionContext) {
+@Singleton
+class CharacterStatsRepository @Inject()(implicit ec: ExecutionContext) {
 
   private val logger = Logger(this.getClass)
   private val mongoUri = "mongodb://localhost:27018/role-playing-service"

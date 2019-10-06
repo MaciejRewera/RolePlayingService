@@ -1,5 +1,9 @@
 
-@()
+@import models.charactersheet.skills.Skill
+
+@import scala.collection.mutable.{Seq => MSeq}
+
+@(skills: MSeq[Skill])
 
 <table class="table table-dark">
   <thead>
@@ -10,6 +14,7 @@
       <th scope="col">Skill</th>
     </tr>
   </thead>
+
   <tbody>
 
     <tr>
