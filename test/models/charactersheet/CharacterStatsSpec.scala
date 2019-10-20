@@ -1,16 +1,18 @@
 package models.charactersheet
 
-import models.charactersheet.CharacterStats.SkillsDefinitions
+import models.charactersheet.CharacterStatsFactory.SkillsDefinitions
 import models.charactersheet.characteristics._
 import org.scalatest.{MustMatchers, WordSpec}
 
 class CharacterStatsSpec extends WordSpec with MustMatchers {
 
+  private val factory = new CharacterStatsFactory()
+
   "CharacterStats ono apply()" should {
 
     "return CharacterStats containing all Characteristics" in {
 
-      val characteristics = CharacterStats().characteristics
+      val characteristics = factory.buildEmptyCharacterStats().characteristics
 
       val CharacteristicsAmount = 10
       characteristics.size must equal(CharacteristicsAmount)
@@ -29,7 +31,7 @@ class CharacterStatsSpec extends WordSpec with MustMatchers {
 
     "return CharacterStats containing all basic Skills" in {
 
-      val skills = CharacterStats().skills
+      val skills = factory.buildEmptyCharacterStats().skills
 
       val BasicSkillsAmount = 25
       skills.size must equal(BasicSkillsAmount)

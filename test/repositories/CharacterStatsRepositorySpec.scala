@@ -1,8 +1,8 @@
 package repositories
 
-import models.charactersheet.CharacterStats
 import models.charactersheet.characteristics.Dexterity
 import models.charactersheet.skills.{Basic, Grouped, SkillDefinition}
+import models.charactersheet.{CharacterStats, CharacterStatsFactory}
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.time.{Millis, Seconds, Span}
 import org.scalatest.{BeforeAndAfterEach, MustMatchers, WordSpec}
@@ -17,6 +17,7 @@ class CharacterStatsRepositorySpec extends WordSpec with MustMatchers with Scala
   )
 
   private val repository = new CharacterStatsRepository()
+  private val factory = new CharacterStatsFactory()
 
   override def beforeEach(): Unit = {
     super.beforeEach()
@@ -33,8 +34,8 @@ class CharacterStatsRepositorySpec extends WordSpec with MustMatchers with Scala
 
     "insert CharacterStats to the DB" in {
 
-      val statsToInsert = CharacterStats()
-      repository.create(CharacterStats()).futureValue
+      val statsToInsert = factory.buildEmptyCharacterStats()
+      repository.create(factory.buildEmptyCharacterStats()).futureValue
 
       val artSkillDefinition = SkillDefinition(name = "Art", category = Set(Basic, Grouped), relatedCharacteristicIdentifier = Dexterity)
       repository.find(
@@ -46,7 +47,7 @@ class CharacterStatsRepositorySpec extends WordSpec with MustMatchers with Scala
 
     "find all" in {
 
-      val statsToInsert = CharacterStats()
+      val statsToInsert = factory.buildEmptyCharacterStats()
       repository.create(statsToInsert).futureValue
       repository.create(statsToInsert).futureValue
       repository.create(statsToInsert).futureValue
@@ -59,9 +60,9 @@ class CharacterStatsRepositorySpec extends WordSpec with MustMatchers with Scala
 
     "remove all" in {
 
-      repository.create(CharacterStats()).futureValue
-      repository.create(CharacterStats()).futureValue
-      repository.create(CharacterStats()).futureValue
+      repository.create(factory.buildEmptyCharacterStats()).futureValue
+      repository.create(factory.buildEmptyCharacterStats()).futureValue
+      repository.create(factory.buildEmptyCharacterStats()).futureValue
 
       repository.removeAll().futureValue
 
