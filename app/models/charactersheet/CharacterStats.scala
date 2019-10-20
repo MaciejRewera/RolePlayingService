@@ -19,6 +19,8 @@ case class CharacterStats(
 object CharacterStats {
   implicit val format = Json.format[CharacterStats]
 
+  // TODO: When building this object from DB, the 'wiring' is not set
+
   def apply(): CharacterStats = {
     val weaponSkill = Characteristic(identifier = WeaponSkill)
     val ballisticSkill = Characteristic(identifier = BallisticSkill)

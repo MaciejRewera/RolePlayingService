@@ -1,0 +1,33 @@
+
+@import models.charactersheet.skills.Skill
+
+@import scala.collection.mutable.{Seq => MSeq}
+
+@(skills: MSeq[Skill])
+
+<table class="table table-dark">
+
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Characteristic</th>
+      <th scope="col">Adv</th>
+      <th scope="col">Skill</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    @for(skill <- skills) {
+      <tr>
+        <td>@{skill.definition.name}</td>
+        <td class="row">
+          <div class="col">@{skill.definition.relatedCharacteristicIdentifier.shortName}</div>
+          <div class="col">@{skill.characteristic}</div>
+        </td>
+        <td>@{skill.advances}</td>
+        <td class="font-weight-bold">@{skill.skillLevel}</td>
+      </tr>
+    }
+  </tbody>
+
+</table>

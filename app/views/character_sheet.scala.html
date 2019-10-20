@@ -1,34 +1,39 @@
 
+@import models.charactersheet.CharacterStats
+@import models.charactersheet.skills.{Advanced, Basic}
 
-@()
+@(characterStats: CharacterStats)
 
 @components.page_with_bootstrap() {
 
-  <div class="container">
+  <div class="container-fluid">
+
     <div class="row">
       <div class="col">
         <h3 align="center">Characteristics</h3>
-        @components.characteristics_table()
+        @{components.characteristics_table(characterStats.characteristics)}
       </div>
     </div>
+
     <div class="row">
       <div class="col">
         <h3 align="center">Basic Skills</h3>
-        @components.basic_skills_table()
+        @{components.skills_table(characterStats.skills.filter(_.definition.category.contains(Basic)).take(characterStats.skills.length / 2))}
       </div>
       <div class="col">
         <h3 align="center">Basic Skills</h3>
-        @components.basic_skills_table()
+        @{components.skills_table(characterStats.skills.filter(_.definition.category.contains(Basic)).drop(characterStats.skills.length / 2))}
       </div>
       <div class="col">
         <h3 align="center">Advanced Skills</h3>
-        @components.basic_skills_table()
+        @{components.skills_table(characterStats.skills.filter(_.definition.category.contains(Advanced)).drop(characterStats.skills.length))}
       </div>
     </div>
+
     <div class="row">
       <div class="col">
         <h3 align="center">Talents</h3>
-        @components.talents_table()
+        @{components.talents_table(characterStats.talents)}
       </div>
     </div>
 

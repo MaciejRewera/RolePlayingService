@@ -1,7 +1,12 @@
 
-@()
+@import models.charactersheet.talents.Talent
+
+@import scala.collection.mutable.{Seq => MSeq}
+
+@(talents: MSeq[Talent])
 
 <table class="table table-dark">
+
   <thead>
     <tr>
       <th scope="col">Talent Name</th>
@@ -10,28 +15,16 @@
       <th scope="col">Description</th>
     </tr>
   </thead>
+
   <tbody>
-
-    <tr>
-      <td>Night Vision</td>
-      <td>1</td>
-      <td>Perception</td>
-      <td>You can see clearly for 20 yards per level of Night Vision.</td>
-    </tr>
-
-    <tr>
-      <td>Artistic</td>
-      <td>2</td>
-      <td>Trade(Artist)</td>
-      <td>You have naturaltalent for art, able to produce precise sketches with nothing but time and appropriate media.</td>
-    </tr>
-
-    <tr>
-      <td>Coolheaded</td>
-      <td>1</td>
-      <td>-</td>
-      <td>You gain permanent +5 bonus to your starting Willpower Characteristic. This does not count towards your Advances.</td>
-    </tr>
-
+    @for(talent <- talents) {
+      <tr>
+        <td>@{talent.definition.name}</td>
+        <td>@{talent.timesTaken}</td>
+        <td>@{talent.definition.relatedSkills.mkString("<br/>")}</td>
+        <td>@{talent.definition.description}</td>
+      </tr>
+    }
   </tbody>
+
 </table>
