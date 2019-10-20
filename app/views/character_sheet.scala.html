@@ -1,5 +1,5 @@
 
-@@import models.charactersheet.CharacterStats
+@import models.charactersheet.CharacterStats
 @import models.charactersheet.skills.{Advanced, Basic}
 
 @(characterStats: CharacterStats)
@@ -33,7 +33,7 @@
     <div class="row">
       <div class="col">
         <h3 align="center">Talents</h3>
-        @components.talents_table()
+        @{components.talents_table(characterStats.talents)}
       </div>
     </div>
 
