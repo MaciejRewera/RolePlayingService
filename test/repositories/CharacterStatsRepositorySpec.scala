@@ -1,6 +1,6 @@
 package repositories
 
-import models.charactersheet.characteristics.Dexterity
+import models.charactersheet.characteristics.CharacteristicIdentifier.Dexterity
 import models.charactersheet.skills.{Basic, Grouped, SkillDefinition}
 import models.charactersheet.{CharacterStats, CharacterStatsFactory}
 import org.scalatest.concurrent.ScalaFutures

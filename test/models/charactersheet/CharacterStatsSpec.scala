@@ -1,7 +1,8 @@
 package models.charactersheet
 
-import models.charactersheet.CharacterStatsFactory.SkillsDefinitions
-import models.charactersheet.characteristics._
+import models.charactersheet.characteristics.Characteristic
+import models.charactersheet.characteristics.CharacteristicIdentifier._
+import models.charactersheet.skills.Skill.SkillsDefinitions
 import org.scalatest.{MustMatchers, WordSpec}
 
 class CharacterStatsSpec extends WordSpec with MustMatchers {
