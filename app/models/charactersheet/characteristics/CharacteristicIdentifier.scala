@@ -29,15 +29,14 @@ object CharacteristicIdentifier {
     }
   }
 
+  case object WeaponSkill extends CharacteristicIdentifier("Weapon Skill", "WS")
+  case object BallisticSkill extends CharacteristicIdentifier("Ballistic Skill", "BS")
+  case object Strength extends CharacteristicIdentifier("Strength", "S")
+  case object Toughness extends CharacteristicIdentifier("Toughness", "T")
+  case object Initiative extends CharacteristicIdentifier("Initiative", "I")
+  case object Agility extends CharacteristicIdentifier("Agility", "Ag")
+  case object Dexterity extends CharacteristicIdentifier("Dexterity", "Dex")
+  case object Intelligence extends CharacteristicIdentifier("Intelligence", "Int")
+  case object Willpower extends CharacteristicIdentifier("Willpower", "WP")
+  case object Fellowship extends CharacteristicIdentifier("Fellowship", "Fel")
 }
-
-case object WeaponSkill extends CharacteristicIdentifier("Weapon Skill", "WS")
-case object BallisticSkill extends CharacteristicIdentifier("Ballistic Skill", "BS")
-case object Strength extends CharacteristicIdentifier("Strength", "S")
-case object Toughness extends CharacteristicIdentifier("Toughness", "T")
-case object Initiative extends CharacteristicIdentifier("Initiative", "I")
-case object Agility extends CharacteristicIdentifier("Agility", "Ag")
-case object Dexterity extends CharacteristicIdentifier("Dexterity", "Dex")
-case object Intelligence extends CharacteristicIdentifier("Intelligence", "Int")
-case object Willpower extends CharacteristicIdentifier("Willpower", "WP")
-case object Fellowship extends CharacteristicIdentifier("Fellowship", "Fel")
