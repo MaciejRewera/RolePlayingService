@@ -2,7 +2,7 @@ package models.charactersheet
 
 import models.charactersheet.characteristics.Characteristic
 import models.charactersheet.characteristics.CharacteristicIdentifier._
-import models.charactersheet.skills.Skill.SkillsDefinitions
+import models.charactersheet.skills.SkillDefinition
 import org.scalatest.{MustMatchers, WordSpec}
 
 class CharacterStatsSpec extends WordSpec with MustMatchers {
@@ -36,7 +36,7 @@ class CharacterStatsSpec extends WordSpec with MustMatchers {
 
       val BasicSkillsAmount = 25
       skills.size must equal(BasicSkillsAmount)
-      SkillsDefinitions.basicSkillsDefinitions.foreach { basicSkillDefinition =>
+      SkillDefinition.basicSkillsDefinitions.foreach { basicSkillDefinition =>
         skills.map(_.definition) must contain(basicSkillDefinition)
       }
     }
