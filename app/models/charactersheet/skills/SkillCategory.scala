@@ -9,9 +9,9 @@ object SkillCategory {
     override def writes(skillCategory: SkillCategory): JsValue = JsString(skillCategory.toString)
 
     override def reads(json: JsValue): JsResult[SkillCategory] = json match {
-      case JsString("Basic") => JsSuccess(Basic)
+      case JsString("Basic")    => JsSuccess(Basic)
       case JsString("Advanced") => JsSuccess(Advanced)
-      case JsString("Grouped") => JsSuccess(Grouped)
+      case JsString("Grouped")  => JsSuccess(Grouped)
     }
   }
 }

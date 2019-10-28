@@ -31,7 +31,6 @@ class CharacterStatsRepository @Inject()(implicit ec: ExecutionContext) {
 
   private lazy val collection: Future[JSONCollection] = database.map(_.collection("character-stats"))
 
-
   def indexes: Seq[Index] = Seq(Index(Seq("id" -> IndexType.Ascending), name = Some("idIdx"), unique = true))
 
   def ensureIndexes(implicit ec: ExecutionContext): Future[Seq[Boolean]] =
@@ -40,7 +39,8 @@ class CharacterStatsRepository @Inject()(implicit ec: ExecutionContext) {
   private val message: String = "Failed to ensure index"
 
   private def ensureIndex(index: Index)(implicit ec: ExecutionContext): Future[Boolean] =
-    collection.flatMap(_.indexesManager.create(index))
+    collection
+      .flatMap(_.indexesManager.create(index))
       .map(wr => {
         if (!wr.ok) {
           val msg = wr.writeErrors.mkString(", ")
@@ -58,7 +58,6 @@ class CharacterStatsRepository @Inject()(implicit ec: ExecutionContext) {
           false
       }
 
-
   def create(stats: CharacterStats): Future[WriteResult] = collection.flatMap(_.insert.one[CharacterStats](stats))
 
   def find(query: (String, JsValueWrapper)*)(implicit ec: ExecutionContext): Future[List[CharacterStats]] =
@@ -68,14 +67,14 @@ class CharacterStatsRepository @Inject()(implicit ec: ExecutionContext) {
         .collect(maxDocs = -1, FailOnError[List[CharacterStats]]())
     )
 
-  def findAll(readPreference: ReadPreference = ReadPreference.primaryPreferred)(
-    implicit ec: ExecutionContext): Future[List[CharacterStats]] =
+  def findAll(
+    readPreference: ReadPreference = ReadPreference.primaryPreferred
+  )(implicit ec: ExecutionContext): Future[List[CharacterStats]] =
     collection.flatMap(
       _.find(Json.obj(), None)
         .cursor[CharacterStats](readPreference)
         .collect(maxDocs = -1, FailOnError[List[CharacterStats]]())
     )
-
 
   def remove(query: (String, JsValueWrapper)*)(implicit ec: ExecutionContext): Future[WriteResult] =
     collection.flatMap(_.delete(writeConcern = WriteConcern.Default).one(Json.obj(query: _*)))

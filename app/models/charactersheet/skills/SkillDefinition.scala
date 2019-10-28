@@ -25,12 +25,13 @@ object SkillDefinition {
       "relatedCharacteristic" -> o.relatedCharacteristicIdentifier
     )
 
-    override def reads(json: JsValue): JsResult[SkillDefinition] = for {
-      name <- (json \ "name").validate[String]
-      description <- (json \ "description").validate[String]
-      category <- (json \ "category").validate[Set[SkillCategory]]
-      possibleSpecialisations <- (json \ "possibleSpecialisations").validate[Set[String]]
-      relatedCharacteristic <- (json \ "relatedCharacteristic").validate[CharacteristicIdentifier]
-    } yield SkillDefinition(name, description, category, possibleSpecialisations, relatedCharacteristic)
+    override def reads(json: JsValue): JsResult[SkillDefinition] =
+      for {
+        name <- (json \ "name").validate[String]
+        description <- (json \ "description").validate[String]
+        category <- (json \ "category").validate[Set[SkillCategory]]
+        possibleSpecialisations <- (json \ "possibleSpecialisations").validate[Set[String]]
+        relatedCharacteristic <- (json \ "relatedCharacteristic").validate[CharacteristicIdentifier]
+      } yield SkillDefinition(name, description, category, possibleSpecialisations, relatedCharacteristic)
   }
 }

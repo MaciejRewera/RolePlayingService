@@ -39,11 +39,7 @@ class CharacterStatsFactory {
       skillsBuilder += Skill(definition = skillDefinition, allCharacteristics = characteristics)
     }
 
-    CharacterStats(
-      characteristics = characteristics,
-      skills = skillsBuilder,
-      talents = MSeq.empty
-    )
+    CharacterStats(characteristics = characteristics, skills = skillsBuilder, talents = MSeq.empty)
   }
 
 }

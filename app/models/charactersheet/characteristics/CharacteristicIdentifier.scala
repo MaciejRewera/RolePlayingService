@@ -6,27 +6,27 @@ sealed class CharacteristicIdentifier(val fullName: String, val shortName: Strin
 
 object CharacteristicIdentifier {
   implicit val format = new Format[CharacteristicIdentifier] {
-    override def writes(o: CharacteristicIdentifier): JsValue = Json.obj(
-      "fullName" -> o.fullName,
-      "shortName" -> o.shortName
-    )
+    override def writes(o: CharacteristicIdentifier): JsValue =
+      Json.obj("fullName" -> o.fullName, "shortName" -> o.shortName)
 
-    override def reads(json: JsValue): JsResult[CharacteristicIdentifier] = for {
-      fullName <- (json \ "fullName").validate[String]
-      shortName <- (json \ "shortName").validate[String]
-    } yield (fullName, shortName) match {
-      case ("Weapon Skill", "WS") => WeaponSkill
-      case ("Ballistic Skill", "BS") => BallisticSkill
-      case ("Strength", "S") => Strength
-      case ("Toughness", "T") => Toughness
-      case ("Initiative", "I") => Initiative
-      case ("Agility", "Ag") => Agility
-      case ("Dexterity", "Dex") => Dexterity
-      case ("Intelligence", "Int") => Intelligence
-      case ("Willpower", "WP") => Willpower
-      case ("Fellowship", "Fel") => Fellowship
-      case _ => new CharacteristicIdentifier("Unknown", "Unknown")
-    }
+    override def reads(json: JsValue): JsResult[CharacteristicIdentifier] =
+      for {
+        fullName <- (json \ "fullName").validate[String]
+        shortName <- (json \ "shortName").validate[String]
+      } yield
+        (fullName, shortName) match {
+          case ("Weapon Skill", "WS")    => WeaponSkill
+          case ("Ballistic Skill", "BS") => BallisticSkill
+          case ("Strength", "S")         => Strength
+          case ("Toughness", "T")        => Toughness
+          case ("Initiative", "I")       => Initiative
+          case ("Agility", "Ag")         => Agility
+          case ("Dexterity", "Dex")      => Dexterity
+          case ("Intelligence", "Int")   => Intelligence
+          case ("Willpower", "WP")       => Willpower
+          case ("Fellowship", "Fel")     => Fellowship
+          case _                         => new CharacteristicIdentifier("Unknown", "Unknown")
+        }
   }
 
   case object WeaponSkill extends CharacteristicIdentifier("Weapon Skill", "WS")

@@ -25,7 +25,8 @@ class BasicMessageBroker extends MessageBroker {
 
   override def publish(message: Message[_], topic: String): Unit =
     topicsSubscribers.get(topic).foreach { allSubscribers =>
-      allSubscribers.foreach { subscriber => subscriber.onMessageReceived(message)
+      allSubscribers.foreach { subscriber =>
+        subscriber.onMessageReceived(message)
       }
     }
 
