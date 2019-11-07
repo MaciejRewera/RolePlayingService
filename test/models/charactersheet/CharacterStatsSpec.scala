@@ -1,7 +1,7 @@
 package models.charactersheet
 
 import models.charactersheet.characteristics.Characteristic
-import models.charactersheet.characteristics.CharacteristicIdentifier._
+import models.charactersheet.characteristics.CharacteristicIdentifier.Fellowship
 import models.charactersheet.skills.Skill
 import models.charactersheet.skills.SkillDefinition.Gossip
 import org.scalatest.{MustMatchers, WordSpec}
@@ -25,7 +25,7 @@ class CharacterStatsSpec extends WordSpec with MustMatchers {
 
     "convert simple CharacterStats from JSON into case class" in {
 
-      Json.fromJson(exampleCharacterStatsJSON) mustBe JsSuccess(exampleCharacterStats)
+      Json.fromJson[CharacterStats](exampleCharacterStatsJSON) mustBe JsSuccess(exampleCharacterStats)
     }
   }
 
@@ -33,20 +33,23 @@ class CharacterStatsSpec extends WordSpec with MustMatchers {
 
 object CharacterStatsSpec {
 
-  val exampleCharacterStats = CharacterStats(
-    id = "RANDOM-ID-1-23",
-    characteristics = MSeq(Characteristic(identifier = Fellowship, initial = 31, advances = 7)),
-    skills = MSeq(
-      Skill(
-        definition = Gossip,
-        specialisation = Some("TEST"),
-        advances = 7,
-        otherBonuses = 10,
-        allCharacteristics = Seq(Characteristic(identifier = Fellowship))
-      )
-    ),
-    talents = MSeq.empty
-  )
+  val exampleCharacterStats = {
+    val fellowship = Characteristic(identifier = Fellowship, initial = 31, advances = 7)
+    CharacterStats(
+      id = "RANDOM-ID-1-23",
+      characteristics = MSeq(fellowship),
+      skills = MSeq(
+        Skill(
+          definition = Gossip,
+          specialisation = Some("TEST"),
+          advances = 7,
+          otherBonuses = 10,
+          allCharacteristics = Seq(fellowship)
+        )
+      ),
+      talents = MSeq.empty
+    )
+  }
 
   val exampleCharacterStatsJSON: JsValue = Json.obj(
     "id" -> "RANDOM-ID-1-23",

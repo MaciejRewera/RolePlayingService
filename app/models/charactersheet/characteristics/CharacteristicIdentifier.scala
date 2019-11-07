@@ -5,6 +5,8 @@ import play.api.libs.json._
 sealed class CharacteristicIdentifier(val fullName: String, val shortName: String)
 
 object CharacteristicIdentifier {
+
+  // TODO: Could store shortName only as a String
   implicit val format = new Format[CharacteristicIdentifier] {
     override def writes(o: CharacteristicIdentifier): JsValue =
       Json.obj("fullName" -> o.fullName, "shortName" -> o.shortName)
