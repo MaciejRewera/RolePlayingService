@@ -1,45 +1,81 @@
 package models.charactersheet
 
 import models.charactersheet.characteristics.Characteristic
-import models.charactersheet.characteristics.CharacteristicIdentifier._
-import models.charactersheet.skills.Skill.SkillsDefinitions
+import models.charactersheet.characteristics.CharacteristicIdentifier.Fellowship
+import models.charactersheet.skills.Skill
+import models.charactersheet.skills.SkillDefinition.Gossip
 import org.scalatest.{MustMatchers, WordSpec}
+import play.api.libs.json.{JsSuccess, JsValue, Json}
+
+import scala.collection.mutable.{Seq => MSeq}
 
 class CharacterStatsSpec extends WordSpec with MustMatchers {
 
-  private val factory = new CharacterStatsFactory()
+  import CharacterStatsSpec._
 
-  "CharacterStats ono apply()" should {
+  "CharacterStats JSON writes" should {
 
-    "return CharacterStats containing all Characteristics" in {
+    "convert CharacterStats into JSON" in {
 
-      val characteristics = factory.buildEmptyCharacterStats().characteristics
-
-      val CharacteristicsAmount = 10
-      characteristics.size must equal(CharacteristicsAmount)
-
-      characteristics must contain(Characteristic(identifier = WeaponSkill))
-      characteristics must contain(Characteristic(identifier = BallisticSkill))
-      characteristics must contain(Characteristic(identifier = Strength))
-      characteristics must contain(Characteristic(identifier = Toughness))
-      characteristics must contain(Characteristic(identifier = Initiative))
-      characteristics must contain(Characteristic(identifier = Agility))
-      characteristics must contain(Characteristic(identifier = Dexterity))
-      characteristics must contain(Characteristic(identifier = Intelligence))
-      characteristics must contain(Characteristic(identifier = Willpower))
-      characteristics must contain(Characteristic(identifier = Fellowship))
-    }
-
-    "return CharacterStats containing all basic Skills" in {
-
-      val skills = factory.buildEmptyCharacterStats().skills
-
-      val BasicSkillsAmount = 25
-      skills.size must equal(BasicSkillsAmount)
-      SkillsDefinitions.basicSkillsDefinitions.foreach { basicSkillDefinition =>
-        skills.map(_.definition) must contain(basicSkillDefinition)
-      }
+      Json.toJson(exampleCharacterStats) mustBe exampleCharacterStatsJSON
     }
   }
+
+  "CharacterStats JSON reads" should {
+
+    "convert simple CharacterStats from JSON into case class" in {
+
+      Json.fromJson[CharacterStats](exampleCharacterStatsJSON) mustBe JsSuccess(exampleCharacterStats)
+    }
+  }
+
+}
+
+object CharacterStatsSpec {
+
+  val exampleCharacterStats = {
+    val fellowship = Characteristic(identifier = Fellowship, initial = 31, advances = 7)
+    CharacterStats(
+      id = "RANDOM-ID-1-23",
+      characteristics = MSeq(fellowship),
+      skills = MSeq(
+        Skill(
+          definition = Gossip,
+          specialisation = Some("TEST"),
+          advances = 7,
+          otherBonuses = 10,
+          allCharacteristics = Seq(fellowship)
+        )
+      ),
+      talents = MSeq.empty
+    )
+  }
+
+  val exampleCharacterStatsJSON: JsValue = Json.obj(
+    "id" -> "RANDOM-ID-1-23",
+    "characteristics" -> Json.arr(
+      Json.obj(
+        "identifier" -> Json.obj("fullName" -> "Fellowship", "shortName" -> "Fel"),
+        "initial" -> 31,
+        "advances" -> 7,
+        "otherBonuses" -> 0
+      )
+    ),
+    "skills" -> Json.arr(
+      Json.obj(
+        "definition" -> Json.obj(
+          "name" -> "Gossip",
+          "description" -> "",
+          "category" -> Json.arr("Basic"),
+          "possibleSpecialisations" -> Json.arr(),
+          "relatedCharacteristic" -> Json.obj("fullName" -> "Fellowship", "shortName" -> "Fel")
+        ),
+        "specialisation" -> "TEST",
+        "advances" -> 7,
+        "otherBonuses" -> 10
+      )
+    ),
+    "talents" -> Json.arr()
+  )
 
 }

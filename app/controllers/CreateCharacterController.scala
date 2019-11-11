@@ -11,10 +11,8 @@ import views.html.create_attributes
 import scala.concurrent.Future
 
 @Singleton
-class CreateCharacterController @Inject()(
-  cc: ControllerComponents,
-  val reactiveMongoApi: ReactiveMongoApi
-) extends AbstractController(cc) with MongoController with ReactiveMongoComponents {
+class CreateCharacterController @Inject()(cc: ControllerComponents, val reactiveMongoApi: ReactiveMongoApi)
+    extends AbstractController(cc) with MongoController with ReactiveMongoComponents {
 
   import scala.concurrent.ExecutionContext.Implicits.global
   private val logger = Logger(this.getClass)
@@ -27,14 +25,13 @@ class CreateCharacterController @Inject()(
   }
 
   def submitForm(): Action[AnyContent] = Action.async { implicit request =>
-    InitialAttributes.form().bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(create_attributes(formWithErrors))),
-      attributes => {
+    InitialAttributes
+      .form()
+      .bindFromRequest()
+      .fold(formWithErrors => Future.successful(BadRequest(create_attributes(formWithErrors))), attributes => {
         onSuccessfulValidation(attributes)
         Future.successful(Redirect(routes.HomeController.index()))
-      }
-    )
+      })
   }
 
   private def onSuccessfulValidation(initialAttributes: InitialAttributes): Unit = {
