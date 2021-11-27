@@ -7,7 +7,6 @@
 
   <thead>
     <tr>
-      <th scope="col"></th>
       @for(ch <- characteristics) {
         <th scope="col">@{ch.identifier.shortName}</th>
       }
@@ -16,21 +15,8 @@
 
   <tbody>
     <tr>
-      <th scope="row">Initial</th>
       @for(ch <- characteristics) {
         <th scope="col">@{ch.initial}</th>
-      }
-    </tr>
-    <tr>
-      <th scope="row">Advances</th>
-      @for(ch <- characteristics) {
-        <th scope="col">@{ch.advances}</th>
-      }
-    </tr>
-    <tr>
-      <th scope="row">Actual</th>
-      @for(ch <- characteristics) {
-        <th scope="col">@{ch.current}</th>
       }
     </tr>
   </tbody>

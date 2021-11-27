@@ -1,5 +1,11 @@
+@import models.charactersheet.CharacterStats
+@import repositories.CharacterStatsRepository
 
-@()
+@import scala.concurrent.ExecutionContext
+
+@this(characterStatsRepository: CharacterStatsRepository)
+
+@(sheets: Seq[CharacterStats])(implicit ec: ExecutionContext)
 
 @components.page_with_bootstrap() {
 
@@ -14,10 +20,18 @@
       <div class="col">
         <a role="button" class="btn btn-primary" href=@{routes.CreateCharacterController.displayPage()}>Enter Initial Characteristics</a>
       </div>
-      <div class="col">
-        <a role="button" class="btn btn-primary" href=@{routes.CharacterSheetController.displayPage()}>View character sheet</a>
-      </div>
     </div>
+
+    @sheets.map { singleCharacterStats =>
+      <div>
+        <div class="col-6">
+          @{components.characteristics_table_simplified(singleCharacterStats.characteristics)}
+        </div>
+        <div class="col-6">
+          <a role="button" class="btn btn-primary" href=@{routes.CharacterSheetController.displayPage(singleCharacterStats.id)}>View character sheet</a>
+        </div>
+      </div>
+    }
   </div>
 
 }
