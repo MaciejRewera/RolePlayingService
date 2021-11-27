@@ -2,8 +2,7 @@ package models.charactersheet
 
 import models.charactersheet.characteristics.CharacteristicIdentifier._
 import models.charactersheet.characteristics._
-import models.charactersheet.skills.Skill
-import models.charactersheet.skills.Skill.SkillsDefinitions
+import models.charactersheet.skills.{Skill, SkillDefinition}
 
 import scala.collection.mutable.{ArrayBuffer, Seq => MSeq}
 
@@ -35,15 +34,11 @@ class CharacterStatsFactory {
     )
 
     val skillsBuilder = new ArrayBuffer[Skill]
-    SkillsDefinitions.basicSkillsDefinitions.foreach { skillDefinition =>
+    SkillDefinition.basicSkillsDefinitions.foreach { skillDefinition =>
       skillsBuilder += Skill(definition = skillDefinition, allCharacteristics = characteristics)
     }
 
-    CharacterStats(
-      characteristics = characteristics,
-      skills = skillsBuilder,
-      talents = MSeq.empty
-    )
+    CharacterStats(characteristics = characteristics, skills = skillsBuilder, talents = MSeq.empty)
   }
 
 }
