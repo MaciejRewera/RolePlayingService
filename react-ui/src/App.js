@@ -1,14 +1,16 @@
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
 
 function App() {
   return (
-    <div className="container">
-      <div className="row">
+    <Container className="p-3">
+      <Row>
         <h1>Welcome to WFRP IV edition</h1>
-      </div>
-      <div className="row">
+      </Row>
+      <Row>
         <h2>Here you can create your character</h2>
-      </div>
-    </div>
+      </Row>
+    </Container>
   );
 }
 
