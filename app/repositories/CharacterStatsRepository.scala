@@ -1,6 +1,5 @@
 package repositories
 
-import javax.inject.{Inject, Singleton}
 import models.charactersheet.CharacterStats
 import play.api.Logger
 import play.api.libs.json.Json
@@ -13,6 +12,8 @@ import reactivemongo.core.errors.GenericDatabaseException
 import reactivemongo.play.json.ImplicitBSONHandlers.JsObjectDocumentWriter
 import reactivemongo.play.json.collection.JSONCollection
 
+import java.util.UUID
+import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
@@ -66,6 +67,9 @@ class CharacterStatsRepository @Inject()(implicit ec: ExecutionContext) {
         .cursor[CharacterStats](ReadPreference.primaryPreferred)
         .collect(maxDocs = -1, FailOnError[List[CharacterStats]]())
     )
+
+  def findById(sheetId: UUID)(implicit ec: ExecutionContext): Future[Option[CharacterStats]] =
+    find("id" -> sheetId.toString).map(_.headOption)
 
   def findAll(
     readPreference: ReadPreference = ReadPreference.primaryPreferred

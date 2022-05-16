@@ -17,3 +17,10 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 
 # Serve static assets under public directory
 GET     /*file                      controllers.HomeController.assetOrDefault(file)
+
+# ------------- BACKEND ENDPOINTS -------------
+
+GET     /characterSheet             controllers.BackendController.getAllCharacterSheets()
+GET     /characterSheet/:sheetId    controllers.BackendController.getCharacterSheet(sheetId)
+#POST    /characterSheet
+#PUT     /characterSheet
