@@ -9,7 +9,7 @@ import javax.inject.{Inject, Singleton}
 import scala.concurrent.ExecutionContext
 
 @Singleton
-class BackendController @Inject()(cc: ControllerComponents, characterStatsRepository: CharacterStatsRepository, )(
+class BackendController @Inject()(cc: ControllerComponents, characterStatsRepository: CharacterStatsRepository)(
   implicit ec: ExecutionContext
 ) extends AbstractController(cc) {
 
@@ -20,7 +20,7 @@ class BackendController @Inject()(cc: ControllerComponents, characterStatsReposi
     }
   }
 
-  def getAllCharacterSheets(): Action[AnyContent] = Action.async { _ =>
+  def getAllCharacterSheets: Action[AnyContent] = Action.async { _ =>
     characterStatsRepository.findAll().map { statsList =>
       Ok(Json.toJson(statsList))
     }

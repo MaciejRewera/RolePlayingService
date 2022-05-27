@@ -1,6 +1,6 @@
 package controllers
 
-import base.CustomPatienceConfig
+import base.UnitTestPatienceConfig
 import models.charactersheet.CharacterStats
 import org.mockito.ArgumentMatchers.{any, eq => eqTo}
 import org.mockito.Mockito
@@ -19,7 +19,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class BackendControllerSpec
-    extends WordSpec with MockitoSugar with ScalaFutures with CustomPatienceConfig with BeforeAndAfterEach {
+    extends WordSpec with MockitoSugar with ScalaFutures with UnitTestPatienceConfig with BeforeAndAfterEach {
 
   private val characterStatsRepository = mock[CharacterStatsRepository]
   private val backendController = new BackendController(stubControllerComponents(), characterStatsRepository)
@@ -31,25 +31,25 @@ class BackendControllerSpec
     Mockito.reset(characterStatsRepository)
   }
 
-  "BackendController on getCharacterSheet" should {
-    "call CharacterStatsRepository" in {
-      when(characterStatsRepository.findById(any())(any())) thenReturn Future.successful(None)
-      val sheetId = UUID.randomUUID()
-
-      backendController.getCharacterSheet(sheetId.toString)(getRequest).futureValue
-
-      verify(characterStatsRepository).findById(eqTo(sheetId))(any())
-    }
-  }
-
   "BackendController on getCharacterSheet" when {
-    val sheetId = UUID.randomUUID().toString
+    val sheetId = UUID.randomUUID()
+    val sheetIdString = sheetId.toString
+
+    "being called" should {
+      "call CharacterStatsRepository" in {
+        when(characterStatsRepository.findById(any())(any())) thenReturn Future.successful(None)
+
+        backendController.getCharacterSheet(sheetId.toString)(getRequest).futureValue
+
+        verify(characterStatsRepository).findById(eqTo(sheetId))(any())
+      }
+    }
 
     "CharacterStatsRepository returns failed Future" should {
       "throw an exception" in {
         when(characterStatsRepository.findById(any())(any())) thenReturn Future.failed(new Exception("Test Exception"))
 
-        val exc = backendController.getCharacterSheet(sheetId)(getRequest).failed.futureValue
+        val exc = backendController.getCharacterSheet(sheetIdString)(getRequest).failed.futureValue
 
         exc.getMessage mustBe "Test Exception"
       }
@@ -61,7 +61,7 @@ class BackendControllerSpec
       "return Ok status" in {
         when(characterStatsRepository.findById(any())(any())) thenReturn Future.successful(Some(characterStats))
 
-        val result = backendController.getCharacterSheet(sheetId)(getRequest).futureValue
+        val result = backendController.getCharacterSheet(sheetIdString)(getRequest).futureValue
 
         result.header.status mustBe OK
       }
@@ -69,7 +69,7 @@ class BackendControllerSpec
       "return this element in body" in {
         when(characterStatsRepository.findById(any())(any())) thenReturn Future.successful(Some(characterStats))
 
-        val result = backendController.getCharacterSheet(sheetId)(getRequest)
+        val result = backendController.getCharacterSheet(sheetIdString)(getRequest)
 
         contentAsJson(result) mustBe Json.toJson(characterStats)
       }
@@ -80,7 +80,7 @@ class BackendControllerSpec
       "return Not Found status" in {
         when(characterStatsRepository.findById(any())(any())) thenReturn Future.successful(None)
 
-        val result = backendController.getCharacterSheet(sheetId)(getRequest).futureValue
+        val result = backendController.getCharacterSheet(sheetIdString)(getRequest).futureValue
 
         result.header.status mustBe NOT_FOUND
       }
@@ -88,9 +88,71 @@ class BackendControllerSpec
       "return empty body" in {
         when(characterStatsRepository.findById(any())(any())) thenReturn Future.successful(None)
 
-        val result = backendController.getCharacterSheet(sheetId)(getRequest)
+        val result = backendController.getCharacterSheet(sheetIdString)(getRequest)
 
         contentAsString(result) mustBe Matchers.empty
+      }
+    }
+  }
+
+  "BackendController on getAllCharacterSheets" when {
+
+    "being called" should {
+      "call CharacterStatsRepository" in {
+        when(characterStatsRepository.findAll(any())(any())) thenReturn Future.successful(List.empty)
+
+        backendController.getAllCharacterSheets(getRequest)
+
+        verify(characterStatsRepository).findAll(any())(any())
+      }
+    }
+
+    "CharacterStatsRepository returns failed Future" should {
+      "throw an exception" in {
+        when(characterStatsRepository.findAll(any())(any())) thenReturn Future.failed(new Exception("Test Exception"))
+
+        val exc = backendController.getAllCharacterSheets()(getRequest).failed.futureValue
+
+        exc.getMessage mustBe "Test Exception"
+      }
+    }
+
+    "CharacterStatsRepository returns successful Future containing empty list" should {
+
+      "return OK status" in {
+        when(characterStatsRepository.findAll(any())(any())) thenReturn Future.successful(List.empty)
+
+        val result = backendController.getAllCharacterSheets()(getRequest).futureValue
+
+        result.header.status mustBe OK
+      }
+
+      "return json with empty list" in {
+        when(characterStatsRepository.findAll(any())(any())) thenReturn Future.successful(List.empty)
+
+        val result = backendController.getAllCharacterSheets()(getRequest)
+
+        contentAsJson(result) mustBe Json.toJson(List.empty[CharacterStats])
+      }
+    }
+
+    "CharacterStatsRepository returns successful Future containing list with elements" should {
+      val characterStats = CharacterStats()
+
+      "return OK status" in {
+        when(characterStatsRepository.findAll(any())(any())) thenReturn Future.successful(List(characterStats))
+
+        val result = backendController.getAllCharacterSheets()(getRequest).futureValue
+
+        result.header.status mustBe OK
+      }
+
+      "return json with these elements" in {
+        when(characterStatsRepository.findAll(any())(any())) thenReturn Future.successful(List(characterStats))
+
+        val result = backendController.getAllCharacterSheets()(getRequest)
+
+        contentAsJson(result) mustBe Json.toJson(List(characterStats))
       }
     }
   }
