@@ -1,19 +1,18 @@
 package models.charactersheet
 
-import java.util.UUID
-
 import models.charactersheet.characteristics._
 import models.charactersheet.skills._
 import models.charactersheet.talents.Talent
 import play.api.libs.json._
 
+import java.util.UUID
 import scala.collection.mutable.{Seq => MSeq}
 
 case class CharacterStats(
   id: String = UUID.randomUUID().toString,
-  characteristics: MSeq[Characteristic],
-  skills: MSeq[Skill],
-  talents: MSeq[Talent]
+  characteristics: Seq[Characteristic] = Seq.empty,
+  skills: MSeq[Skill] = MSeq.empty,
+  talents: MSeq[Talent] = MSeq.empty
 )
 
 object CharacterStats {

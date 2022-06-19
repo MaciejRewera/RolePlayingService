@@ -1,5 +1,7 @@
 package forms
 
+import models.charactersheet.characteristics.Characteristic
+import models.charactersheet.characteristics.CharacteristicIdentifier._
 import play.api.data.Forms._
 import play.api.data.{Form, Forms}
 
@@ -14,7 +16,21 @@ case class InitialAttributes(
   intelligence: Int,
   willpower: Int,
   fellowship: Int
-)
+) {
+
+  def toCharacteristics: Seq[Characteristic] = Seq(
+    Characteristic(WeaponSkill, weaponSkill),
+    Characteristic(BallisticSkill, ballisticSkill),
+    Characteristic(Strength, strength),
+    Characteristic(Toughness, toughness),
+    Characteristic(Initiative, initiative),
+    Characteristic(Agility, agility),
+    Characteristic(Dexterity, dexterity),
+    Characteristic(Intelligence, intelligence),
+    Characteristic(Willpower, willpower),
+    Characteristic(Fellowship, fellowship)
+  )
+}
 
 object InitialAttributes {
   val weaponSkillKey = "weaponSkill"

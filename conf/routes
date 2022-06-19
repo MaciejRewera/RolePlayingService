@@ -10,11 +10,17 @@ GET     /attributes/create          controllers.CreateCharacterController.displa
 
 POST    /attributes/create          controllers.CreateCharacterController.submitForm
 
-GET     /characterSheet             controllers.CharacterSheetController.displayPage
-
-
+GET     /characterSheet/:sheetId    controllers.CharacterSheetController.displayPage(sheetId: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
-      
+# Serve static assets under public directory
+GET     /*file                      controllers.HomeController.assetOrDefault(file)
+
+# ------------- BACKEND ENDPOINTS -------------
+
+GET     /characterSheet             controllers.BackendController.getAllCharacterSheets()
+GET     /characterSheet/:sheetId    controllers.BackendController.getCharacterSheet(sheetId)
+#POST    /characterSheet
+#PUT     /characterSheet
