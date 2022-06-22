@@ -1,8 +1,4 @@
 
-# Routes
-# This file defines all application routes (Higher priority routes first)
-# ~~~~
-
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
 
@@ -20,7 +16,4 @@ GET     /*file                      controllers.HomeController.assetOrDefault(fi
 
 # ------------- BACKEND ENDPOINTS -------------
 
-GET     /characterSheet             controllers.BackendController.getAllCharacterSheets()
-GET     /characterSheet/:sheetId    controllers.BackendController.getCharacterSheet(sheetId)
-#POST    /characterSheet
-#PUT     /characterSheet
+->      /api                        backend.Routes

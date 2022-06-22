@@ -1,7 +1,8 @@
-package controllers
+package com.roleplayingservice.backend.controllers
 
-import base.UnitTestPatienceConfig
-import models.charactersheet.CharacterStats
+import com.roleplayingservice.backend.base.UnitTestPatienceConfig
+import com.roleplayingservice.backend.models.charactersheet.CharacterStats
+import com.roleplayingservice.backend.repositories.CharacterStatsRepository
 import org.mockito.ArgumentMatchers.{any, eq => eqTo}
 import org.mockito.Mockito
 import org.mockito.Mockito.{verify, when}
@@ -12,7 +13,6 @@ import org.scalatestplus.mockito.MockitoSugar
 import play.api.libs.json.Json
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import repositories.CharacterStatsRepository
 
 import java.util.UUID
 import scala.concurrent.ExecutionContext.Implicits.global

@@ -1,0 +1,9 @@
+
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+GET     /characterSheet             com.roleplayingservice.backend.controllers.BackendController.getAllCharacterSheets()
+GET     /characterSheet/:sheetId    com.roleplayingservice.backend.controllers.BackendController.getCharacterSheet(sheetId)
+#POST    /characterSheet
+#PUT     /characterSheet

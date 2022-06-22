@@ -1,4 +1,4 @@
-package base
+package com.roleplayingservice.backend.base
 
 import org.scalatest.concurrent.{AbstractPatienceConfiguration, PatienceConfiguration}
 import org.scalatest.time.{Millis, Seconds, Span}

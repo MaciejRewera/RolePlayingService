@@ -1,8 +1,8 @@
-package controllers
+package com.roleplayingservice.backend.controllers
 
+import com.roleplayingservice.backend.repositories.CharacterStatsRepository
 import play.api.libs.json.Json
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}
-import repositories.CharacterStatsRepository
 
 import java.util.UUID
 import javax.inject.{Inject, Singleton}
